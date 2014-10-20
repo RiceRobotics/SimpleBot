@@ -8,6 +8,8 @@
 #ifndef RICEBOT_H_
 #define RICEBOT_H_
 
+#include "main.h"
+
 //Constants
 #define MATH_PI 3.14159265358979323846
 
@@ -28,7 +30,7 @@
 #define EIGHTWHEELS 	2
 #define MECANUM 		3
 #define HOLONOMIC 		4
-#define HDRIVE 			5
+#define DTHDRIVE 		5
 #define SWERVE 			6
 
 //Autonomous Instructions
@@ -74,9 +76,9 @@ extern Motor ARMBottomLeft;
 
 #define IMERIGHT 		0
 #define IMELEFT			1
-extern Encoder encRight;
-extern Encoder encLeft;
-extern Gyro gyro;
+//extern Encoder encRight;
+//extern Encoder encLeft;
+//extern Gyro gyro;
 extern int armPot;
 //If 1, use imeGet(), else use encoderGet()
 extern int useIMEs;

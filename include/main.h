@@ -44,6 +44,7 @@
 #define MAIN_H_
 
 #include <API.h>
+#include "RiceBot.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus
@@ -54,32 +55,6 @@ extern "C" {
 // actual code. If a function does not match a prototype, compile errors will occur.
 
 // Prototypes for initialization, operator control and autonomous
-
-//Teams
-#define RED -1
-#define BLUE 1
-
-//Control Style
-#define TANKDRIVE 		0
-#define ARCADEDRIVE		1
-#define CHEEZYDRIVE		2
-#define MECANUMDRIVE	3
-#define HDRIVE			4
-
-//Drivetrain Styles
-#define FOURWHEELS 		0
-#define SIXWHEELS 		1
-#define EIGHTWHEELS 	2
-#define MECANUM 		3
-#define HOLONOMIC 		4
-#define HDRIVE 			5
-#define SWERVE 			6
-
-//Sensors
-extern Encoder encRight;
-extern Encoder encLeft;
-extern Gyro gyro;
-extern int armPot;
 
 /**
  * Runs the user autonomous code. This function will be started in its own task with the default

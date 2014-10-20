@@ -33,7 +33,6 @@
  */
 
 #include "main.h"
-#include "RiceBot.c"
 
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
@@ -63,18 +62,18 @@ void initializeIO() {
 void initialize() {
 //	encLeft = encoderInit(0, 0, false);
 //	encRight = encoderInit(0, 0, false);
-	gyro = gyroInit(0, 196);
-	imeInitializeAll();
-	useIMEs = 1;
-	encTicksPerRev = 392;
+//	gyro = gyroInit(0, 196);
+//	imeInitializeAll();
+//	useIMEs = 1;
+//	encTicksPerRev = 392;
 
 	riceBotInitialize();
 
 	//4 wheel drive used as example here
-	initMotor(DTFrontLeft, 2, 0, 1);
-	initMotor(DTFrontRight, 3, 0, -1);
-	initMotor(DTBackLeft, 9, 0, 1);
-	initMotor(DTBackRight, 8, 0, -1);
+	initMotor(DTFrontLeft, 3, 0, 1);
+	initMotor(DTFrontRight, 9, 0, 1);
+	initMotor(DTBackLeft, 2, 0, 1);
+	initMotor(DTBackRight, 8, 0, 1);
 
 
 }

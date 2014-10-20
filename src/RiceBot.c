@@ -10,7 +10,7 @@
  * Author: Keiko Kaplan
  */
 
-#include "RiceBot.h"
+#include "main.h"
 
 /*
  * A simple function to set all 3 fields of a Motor.
@@ -67,7 +67,6 @@ void riceBotInitialize() {
 	ARMTopLeft = initMotor(ARMTopLeft, 0, 0, 1);
 	Motor ARMBottomLeft;
 	ARMBottomLeft = initMotor(ARMBottomLeft, 0, 0, 1);
-
 }
 
 /*
@@ -174,70 +173,62 @@ void setDriveTrainMotors(int driveTrainStyle) {
 		motorSet(DTMidRight.port, DTMidRight.out * DTMidRight.reflected);
 		motorSet(DTBackRight.port, DTBackRight.out * DTBackRight.reflected);
 		break;
-	case MECANUM:
-		break;
-	case HOLONOMIC:
-		break;
-	case HDRIVE:
-		break;
-	case SWERVE:
-		break;
 	default:
 		break;
 	}
 }
 
-int autonomousTask(int instruction, int distance, int pow, long timeout) {
-	int success = 0;
-	long startTime = millis();
+//int autonomousTask(int instruction, int distance, int pow, long timeout) {
+//	int success = 0;
+//	long startTime = millis();
+//
+//	int power[2];
+//	power[1] = (pow == NULL) ? 127 : pow;
+//	power[0] = power[1];
+//
+//	switch(instruction) {
+//	case AUTODRIVEBASIC:
+//		int target = encTicksPerRev / (4 * MATH_PI) * distance;
+//		int power = (pow == NULL) ? 127 : pow;
+//		int current[2] = getEncoders();
+//
+//		while(current[1] < target && millis() < startTime + timeout) {
+//			if(abs(current[1] - current[0]) > 50) {
+//				if(current[0] > current[1]) {
+//					power[0] = speedRegulator(power[0] - 2);
+//				} else if(current[0] < current[1]) {
+//					power[0] = speedRegulator(power[0] + 2);
+//				}
+//			}
+//
+//			DTFrontRight.out = power[1];
+//			DTFrontMidRight.out = power[1];
+//			DTMidRight.out = power[1];
+//			DTBackRight.out = power[1];
+//			DTFrontLeft.out = power[0];
+//			DTFrontMidLeft.out = power[0];
+//			DTMidLeft.out = power[0];
+//			DTBackLeft.out = power[0];
+//
+//			delay(20);
+//			current = getEncoders();
+//		}
+//		break;
+//	}
+//	return success;
+//}
 
-	int power[2];
-	power[1] = (pow == NULL) ? 127 : pow;
-	power[0] = power[1];
-
-	switch(instruction) {
-	case AUTODRIVEBASIC:
-		int target = encTicksPerRev / (4 * MATH_PI) * distance;
-		int power = (pow == NULL) ? 127 : pow;
-		int current[2] = getEncoders();
-
-		while(current[1] < target && millis() < startTime + timeout) {
-			if(abs(current[1] - current[0]) > 50) {
-				if(current[0] > current[1]) {
-					power[0] = speedRegulator(power[0] - 2);
-				} else if(current[0] < current[1]) {
-					power[0] = speedRegulator(power[0] + 2);
-				}
-			}
-
-			DTFrontRight.out = power[1];
-			DTFrontMidRight.out = power[1];
-			DTMidRight.out = power[1];
-			DTBackRight.out = power[1];
-			DTFrontLeft.out = power[0];
-			DTFrontMidLeft.out = power[0];
-			DTMidLeft.out = power[0];
-			DTBackLeft.out = power[0];
-
-			delay(20);
-			current = getEncoders();
-		}
-		break;
-	}
-	return success;
-}
-
-int * getEncoders() {
-	int values[2];
-	if(useIMEs) {
-		imeGet(IMELEFT, &values[0]);
-		imeGet(IMERIGHT, &values[1]);
-	} else {
-		values[0] = encoderGet(encLeft);
-		values[1] = encoderGet(encRight);
-	}
-	return values;
-}
+//int * getEncoders() {
+//	int values[2];
+//	if(useIMEs) {
+//		imeGet(IMELEFT, &values[0]);
+//		imeGet(IMERIGHT, &values[1]);
+//	} else {
+//		values[0] = encoderGet(encLeft);
+//		values[1] = encoderGet(encRight);
+//	}
+//	return values;
+//}
 
 int speedRegulator(int speed) {
 	if(speed > 127) {

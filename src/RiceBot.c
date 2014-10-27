@@ -12,6 +12,14 @@
 
 #include "main.h"
 
+Motor *newMotor() {
+	Motor *m = malloc(sizeof(Motor));
+	m->port = 0;
+	m->out = 0;
+	m->reflected = 1;
+	return m;
+}
+
 /*
  * A simple function to set all 3 fields of a Motor.
  *
@@ -20,14 +28,14 @@
  * @param out The power output to the motor, between -127 and 127
  * @param reflected If the output to the motor should be reversed. -1 or 1
  *
- * @returns The configured Motor struct
  */
-Motor initMotor(Motor m, int port, int out, int reflected) {
-	m.port = port;
-	m.out = out;
-	m.reflected = reflected;
-	return m;
+void initMotor(Motor *m, unsigned char port, int out, int reflected) {
+	printf("initMotor ");
+	m->port = port;
+	m->out = out;
+	m->reflected = reflected;
 }
+
 
 void riceBotInitializeIO() {
 
@@ -38,35 +46,36 @@ void riceBotInitializeIO() {
  * After, be sure to reinitialize each motor you will be using on your robot.
  */
 void riceBotInitialize() {
-	Motor DTFrontRight;
-	DTFrontRight = initMotor(DTFrontRight, 0, 0, 1);
-	Motor DTFrontMidRight;
-	DTFrontMidRight = initMotor(DTFrontMidRight, 0, 0, 1);
-	Motor DTMidRight;
-	DTMidRight = initMotor(DTMidRight, 0, 0, 1);
-	Motor DTBackRight;
-	DTBackRight = initMotor(DTBackRight, 0, 0, 1);
-	Motor DTFrontLeft;
-	DTFrontLeft = initMotor(DTFrontLeft, 0, 0, 1);
-	Motor DTFrontMidLeft;
-	DTFrontMidLeft = initMotor(DTFrontMidLeft, 0, 0, 1);
-	Motor DTMidLeft;
-	DTMidLeft = initMotor(DTMidLeft, 0, 0, 1);
-	Motor DTBackLeft;
-	DTBackLeft = initMotor(DTBackLeft, 0, 0, 1);
 
-	Motor ARMRight;
-	ARMRight = initMotor(ARMRight, 0, 0, 1);
-	Motor ARMLeft;
-	ARMLeft = initMotor(ARMLeft, 0, 0, 1);
-	Motor ARMTopRight;
-	ARMTopRight = initMotor(ARMTopRight, 0, 0, 1);
-	Motor ARMBottomRight;
-	ARMBottomRight = initMotor(ARMBottomRight, 0, 0, 1);
-	Motor ARMTopLeft;
-	ARMTopLeft = initMotor(ARMTopLeft, 0, 0, 1);
-	Motor ARMBottomLeft;
-	ARMBottomLeft = initMotor(ARMBottomLeft, 0, 0, 1);
+	Motor *DTFrontRight = newMotor();
+	//	DTFrontRight = initMotor(DTFrontRight, 0, 0, 1);
+	Motor *DTFrontMidRight = newMotor();
+	//	DTFrontMidRight = initMotor(DTFrontMidRight, 0, 0, 1);
+	Motor *DTMidRight = newMotor();
+	//	DTMidRight = initMotor(DTMidRight, 0, 0, 1);
+	Motor *DTBackRight = newMotor();
+	//	DTBackRight = initMotor(DTBackRight, 0, 0, 1);
+	Motor *DTFrontLeft = newMotor();
+	//	DTFrontLeft = initMotor(DTFrontLeft, 0, 0, 1);
+	Motor *DTFrontMidLeft = newMotor();
+	//	DTFrontMidLeft = initMotor(DTFrontMidLeft, 0, 0, 1);
+	Motor *DTMidLeft = newMotor();
+	//	DTMidLeft = initMotor(DTMidLeft, 0, 0, 1);
+	Motor *DTBackLeft = newMotor();
+	//	DTBackLeft = initMotor(DTBackLeft, 0, 0, 1);
+
+	Motor *ARMRight = newMotor();
+	//	ARMRight = initMotor(ARMRight, 0, 0, 1);
+	Motor *ARMLeft = newMotor();
+	//	ARMLeft = initMotor(ARMLeft, 0, 0, 1);
+	Motor *ARMTopRight = newMotor();
+	//	ARMTopRight = initMotor(ARMTopRight, 0, 0, 1);
+	Motor *ARMBottomRight = newMotor();
+	//	ARMBottomRight = initMotor(ARMBottomRight, 0, 0, 1);
+	Motor *ARMTopLeft = newMotor();
+	//	ARMTopLeft = initMotor(ARMTopLeft, 0, 0, 1);
+	Motor *ARMBottomLeft = newMotor();
+	//	ARMBottomLeft = initMotor(ARMBottomLeft, 0, 0, 1);
 }
 
 /*

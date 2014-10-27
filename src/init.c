@@ -43,7 +43,7 @@
  * configure a UART port (usartOpen()) but cannot set up an LCD (lcdInit()).
  */
 void initializeIO() {
-	riceBotInitializeIO();
+//	riceBotInitializeIO();
 }
 
 /*
@@ -69,11 +69,17 @@ void initialize() {
 
 	riceBotInitialize();
 
-	//4 wheel drive used as example here
-	initMotor(DTFrontLeft, 3, 0, 1);
-	initMotor(DTFrontRight, 9, 0, 1);
-	initMotor(DTBackLeft, 2, 0, 1);
-	initMotor(DTBackRight, 8, 0, 1);
+	taskCreate(startMotorTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
+	//4 wheel drive used as example here
+	initMotor(&DTFrontLeft, 3, 0, 1);
+	initMotor(&DTFrontRight, 9, 0, 1);
+	initMotor(&DTBackLeft, 2, 0, 1);
+	initMotor(&DTBackRight, 8, 0, 1);
+
+	initMotor(&ARMTopLeft, 4, 0, 1);
+	initMotor(&ARMTopRight, 6, 0, 1);
+	initMotor(&ARMBottomLeft, 7, 0, 1);
+	initMotor(&ARMBottomRight, 5, 0, 1);
 
 }

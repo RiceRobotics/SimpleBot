@@ -55,7 +55,32 @@ void operatorControl() {
 
 	while (1) {
 		getJoystickForDriveTrain(TANKDRIVE);
-		setDriveTrainMotors(FOURWHEELS);
+//		setDriveTrainMotors(FOURWHEELS);
+
+		if(joystickGetDigital(1, 6, JOY_UP)) {
+			ARMTopLeft.out = 127;
+			ARMTopRight.out = 127;
+			ARMBottomLeft.out = 127;
+			ARMBottomRight.out = 127;
+		}
+		else if(joystickGetDigital(1, 6, JOY_DOWN)) {
+			ARMTopLeft.out = -127;
+			ARMTopRight.out = -127;
+			ARMBottomLeft.out = -127;
+			ARMBottomRight.out = -127;
+		}
+		else {
+			ARMTopLeft.out = 0;
+			ARMTopRight.out = 0;
+			ARMBottomLeft.out = 0;
+			ARMBottomRight.out = 0;
+		}
+		motorSet(ARMTopLeft.port, ARMTopLeft.out);
+		motorSet(ARMTopRight.port, ARMTopRight.out);
+		motorSet(ARMBottomLeft.port, ARMBottomLeft.out);
+		motorSet(ARMBottomRight.port, ARMBottomRight.out);
+
+
 
 		delay(20);
 	}

@@ -43,8 +43,8 @@
 
 
 //The basic motor struct
-struct motor {
-	int port;
+struct motorStruct {
+	unsigned char port;
 	int out;
 	int reflected;
 };
@@ -56,40 +56,42 @@ struct motor {
  * @param out The power output to the motor, between -127 and 127
  * @param reflected If the output to the motor should be reversed. -1 or 1
  */
-typedef struct motor Motor;
+typedef struct motorStruct Motor;
 
-extern Motor DTFrontRight;
-extern Motor DTFrontMidRight;
-extern Motor DTMidRight;
-extern Motor DTBackRight;
-extern Motor DTFrontLeft;
-extern Motor DTFrontMidLeft;
-extern Motor DTMidLeft;
-extern Motor DTBackLeft;
+Motor DTFrontRight;
+Motor DTFrontMidRight;
+Motor DTMidRight;
+Motor DTBackRight;
+Motor DTFrontLeft;
+Motor DTFrontMidLeft;
+Motor DTMidLeft;
+Motor DTBackLeft;
 
-extern Motor ARMRight;
-extern Motor ARMLeft;
-extern Motor ARMTopRight;
-extern Motor ARMBottomRight;
-extern Motor ARMTopLeft;
-extern Motor ARMBottomLeft;
+Motor ARMRight;
+Motor ARMLeft;
+Motor ARMTopRight;
+Motor ARMBottomRight;
+Motor ARMTopLeft;
+Motor ARMBottomLeft;
 
 #define IMERIGHT 		0
 #define IMELEFT			1
 //extern Encoder encRight;
 //extern Encoder encLeft;
 //extern Gyro gyro;
-extern int armPot;
+int armPot;
 //If 1, use imeGet(), else use encoderGet()
-extern int useIMEs;
+int useIMEs;
 /*
  * 627.2 for the 393 IME in high torque mode (factory default)
  * 392 for the 393 IME in high speed mode
  * 360 for the Quadrature Encoder
  */
-extern double encTicksPerRev;
+double encTicksPerRev;
 
-Motor initMotor(Motor m, int port, int out, int reflected);
+Motor *newMotor();
+
+void initMotor(Motor *m, unsigned char port, int out, int reflected);
 
 void riceBotInitializeIO();
 
@@ -98,5 +100,7 @@ void riceBotInitialize();
 void getJoystickForDriveTrain(int controlStyle);
 
 void setDriveTrainMotors(int driveTrainStyle);
+
+void startMotorTask(void *ignore);
 
 #endif /* RICEBOT_H_ */

@@ -18,20 +18,26 @@
 #define BLUE 1
 
 //Control Style
-#define TANKDRIVE 		0
-#define ARCADEDRIVE		1
-#define CHEEZYDRIVE		2
-#define MECANUMDRIVE	3
-#define HDRIVE			4
+#define CTTANKDRIVE 	0
+#define CTARCADEDRIVE	1
+#define CTCHEEZYDRIVE	2
+#define CTMECANUMDRIVE	3
+#define CTHDRIVE		4
+
+//Defines how the analog joystick inputs translate to motor outputs (CT-)
+int controlStyle;
 
 //Drivetrain Styles
-#define FOURWHEELS 		0
-#define SIXWHEELS 		1
-#define EIGHTWHEELS 	2
-#define MECANUM 		3
-#define HOLONOMIC 		4
-#define DTHDRIVE 		5
-#define SWERVE 			6
+#define DTFOURWHEELS 	0
+#define DTSIXWHEELS 	1
+#define DTEIGHTWHEELS 	2
+#define DTMECANUM 		3
+#define DTHOLONOMIC 	4
+#define DTDTHDRIVE 		5
+#define DTSWERVE 		6
+
+//Defines the drivetrain installed on the robot (DT-)
+int driveTrainStyle;
 
 //Autonomous Instructions
 #define AUTODRIVEBASIC	0
@@ -58,6 +64,38 @@ struct motorStruct {
  */
 typedef struct motorStruct Motor;
 
+//The basic pid struct
+struct pidStruct {
+//	bool running;
+	float setPoint;
+	int *current;
+	float error;
+	float lastError;
+	float integral;
+	float derivative;
+	float kP;
+	float kI;
+	float kD;
+	int output;
+//	bool done;
+};
+
+/*
+ * The Pid type contains all data for any individual pid loop we may wish to run.
+ *
+ * @param setPoint The target value for the loop
+ * @param *current A pointer to relevant sensor value (CANNOT BE AN ARRAY)
+ * @param error The difference between setPoint and &current
+ * @param lastError The previous error value, used for derivative calculations
+ * @param integral A running sum of all previous errors
+ * @param derivative The difference between lastError and error
+ * @param kP The coefficient for the proportional term
+ * @param kI The coefficient for the integral term
+ * @param kD The coefficient for the derivative term
+ * @param output The value to be set to the motors
+ */
+typedef struct pidStruct Pid;
+
 Motor DTFrontRight;
 Motor DTFrontMidRight;
 Motor DTMidRight;
@@ -76,10 +114,16 @@ Motor ARMBottomLeft;
 
 #define IMERIGHT 		0
 #define IMELEFT			1
-//extern Encoder encRight;
-//extern Encoder encLeft;
-//extern Gyro gyro;
+Encoder encRight;
+Encoder encLeft;
+Gyro gyro;
+//Value of [Left, Right] Encoders retrieved at last IOTask
+int encVals[2];
+//Value of Gyro retrieved at last IOTask
+int gyroVal;
+//Value of armPot retrieved at last IOTask
 int armPot;
+
 //If 1, use imeGet(), else use encoderGet()
 int useIMEs;
 /*
@@ -93,6 +137,11 @@ Motor *newMotor();
 
 void initMotor(Motor *m, unsigned char port, int out, int reflected);
 
+Pid *newPid();
+
+void initPid(Pid *p, float setPoint, int current, float error,	float lastError, float integral,
+		float derivative, float kP, float kI, float kD, int output);
+
 void riceBotInitializeIO();
 
 void riceBotInitialize();
@@ -101,6 +150,14 @@ void getJoystickForDriveTrain(int controlStyle);
 
 void setDriveTrainMotors(int driveTrainStyle);
 
-void startMotorTask(void *ignore);
+int autonomousTask(int instruction, int distance, int pow, long timeout);
+
+Pid processPid(Pid pidLoop);
+
+int speedRegulator(int speed);
+
+void startIOTask(void *ignore);
+
+void startPidTask(void *ignore);
 
 #endif /* RICEBOT_H_ */

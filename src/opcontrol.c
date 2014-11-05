@@ -54,8 +54,7 @@
 void operatorControl() {
 
 	while (1) {
-		getJoystickForDriveTrain(TANKDRIVE);
-//		setDriveTrainMotors(FOURWHEELS);
+		getJoystickForDriveTrain(controlStyle);
 
 		if(joystickGetDigital(1, 6, JOY_UP)) {
 			ARMTopLeft.out = 127;
@@ -75,12 +74,6 @@ void operatorControl() {
 			ARMBottomLeft.out = 0;
 			ARMBottomRight.out = 0;
 		}
-		motorSet(ARMTopLeft.port, ARMTopLeft.out);
-		motorSet(ARMTopRight.port, ARMTopRight.out);
-		motorSet(ARMBottomLeft.port, ARMBottomLeft.out);
-		motorSet(ARMBottomRight.port, ARMBottomRight.out);
-
-
 
 		delay(20);
 	}

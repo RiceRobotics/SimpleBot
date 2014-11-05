@@ -60,16 +60,17 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
-//	encLeft = encoderInit(0, 0, false);
-//	encRight = encoderInit(0, 0, false);
-//	gyro = gyroInit(0, 196);
-//	imeInitializeAll();
+
 //	useIMEs = 1;
 //	encTicksPerRev = 392;
 
+	driveTrainStyle = DTFOURWHEELS;
+	controlStyle = CTTANKDRIVE;
+
 	riceBotInitialize();
 
-	taskCreate(startMotorTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+	taskCreate(startIOTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_HIGHEST);
+	taskCreate(startPidTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
 	//4 wheel drive used as example here
 	initMotor(&DTFrontLeft, 3, 0, 1);

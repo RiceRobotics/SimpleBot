@@ -9,7 +9,7 @@
 
 void startIOTask(void *ignore) {
 	while(1) {
-		setDriveTrainMotors(DTFOURWHEELS);
+		setDriveTrainMotors(driveTrainStyle);
 
 		motorSet(ARMLeft.port, ARMLeft.out);
 		motorSet(ARMRight.port, ARMRight.out);

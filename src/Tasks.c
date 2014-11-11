@@ -11,12 +11,12 @@ void startIOTask(void *ignore) {
 	while(1) {
 		setDriveTrainMotors(driveTrainStyle);
 
-		motorSet(ARMLeft.port, ARMLeft.out);
-		motorSet(ARMRight.port, ARMRight.out);
-		motorSet(ARMTopLeft.port, ARMTopLeft.out);
-		motorSet(ARMTopRight.port, ARMTopRight.out);
-		motorSet(ARMBottomLeft.port, ARMBottomLeft.out);
-		motorSet(ARMBottomRight.port, ARMBottomRight.out);
+		motorSet(ARMLeft.port, ARMLeft.out * ARMLeft.reflected);
+		motorSet(ARMRight.port, ARMRight.out * ARMRight.reflected);
+		motorSet(ARMTopLeft.port, ARMTopLeft.out * ARMTopLeft.reflected);
+		motorSet(ARMTopRight.port, ARMTopRight.out * ARMTopRight.reflected);
+		motorSet(ARMBottomLeft.port, ARMBottomLeft.out * ARMBottomLeft.reflected);
+		motorSet(ARMBottomRight.port, ARMBottomRight.out * ARMBottomRight.reflected);
 
 		if(useIMEs) {
 			imeGet(IMELEFT, &encVals[0]);
